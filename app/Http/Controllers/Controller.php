@@ -49,7 +49,7 @@ class Controller extends BaseController
         $applicant->password = Hash::make($request->input('password'));
         //dd($applicant);
         $applicant->save();
-        return "تم ارسال طلبك للادارة";
+        return back()->with('success','تم ارسال طلبك للإدارة بنجاح يرجى انتظار قبول الطلب');
     }
     public function showRequests(){
         return view('layouts.requests')->with("applicants" , Applicant::all());
@@ -66,7 +66,8 @@ class Controller extends BaseController
         $applicant->delete();
     }
     public function showUsers(){
-        $users = User::where('rule_id','!=',1)->get();  // get all none admins users
+        //$users = User::where('rule_id','!=',1)->get();  // get all none admins users
+        $users = User::all();
         return view('layouts.users')->with(["users"=>$users]);
     }
     public function records(){
@@ -92,4 +93,29 @@ class Controller extends BaseController
     public function showMap(){
         return view('layouts.map');
     } 
+
+    public function makeAdmin($id){
+        $user = User::find($id);
+        $role = array('admin');
+        $user->assignRole($role);
+        return back()->with('success','تم منح سماحية المشرف بنجاح');
+    }
+    public function makeCashier($id){
+        $user = User::find($id);
+        $role = array('cashier');
+        $user->assignRole($role);
+        return back()->with('success','تم منح سماحية الكاشير بنجاح');
+    }
+    public function makeDriver($id){
+        $user = User::find($id);
+        $role = array('driver');
+        $user->assignRole($role);
+        return back()->with('success','تم منح سماحية السائق بنجاح');
+    }
+    public function makeClient($id){
+        $user = User::find($id);
+        $role = array('client');
+        $user->assignRole($role);
+        return back()->with('success','تم منح سماحية الزبون بنجاح');
+    }
 }
