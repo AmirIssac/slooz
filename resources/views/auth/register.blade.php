@@ -9,8 +9,8 @@
     <div class="card-body login-card-body">
         <p class="login-box-msg">{{__('auth.register_new_member')}}</p>
 
-        {{--<form action="{{ url('/register') }}" method="post">--}}
-            <form action="/request/register" method="post">
+            <form action="{{ url('/register') }}" method="post">
+           {{-- <form action="/request/register" method="post">--}}
                {!! csrf_field() !!}  
 
             <div class="input-group mb-3">

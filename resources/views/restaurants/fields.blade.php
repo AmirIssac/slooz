@@ -100,7 +100,7 @@
     <div style="margin-top: 10px" class="form-group row ">
         {!! Form::label('latitude', trans("lang.restaurant_latitude"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('latitude', null,  ['id'=> 'lat','class' => 'form-control','placeholder'=>  trans("lang.restaurant_latitude_placeholder")]) !!}
+            {!! Form::text('latitude', null,  ['id'=> 'lat','class' => 'form-control','placeholder'=>  'أدخل خط العرض يدويا في حال عدم توافر رابط']) !!}
             <div class="form-text text-muted">
                 {{ trans("lang.restaurant_latitude_help") }}
             </div>
@@ -112,7 +112,7 @@
     <div class="form-group row ">
         {!! Form::label('longitude', trans("lang.restaurant_longitude"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('longitude', null,  ['id'=> 'long','class' => 'form-control','placeholder'=>  trans("lang.restaurant_longitude_placeholder")]) !!}
+            {!! Form::text('longitude', null,  ['id'=> 'long','class' => 'form-control','placeholder'=>  'أدخل خط الطول يدويا في حال عدم توافر رابط']) !!}
             <div class="form-text text-muted">
                 {{ trans("lang.restaurant_longitude_help") }}
             </div>

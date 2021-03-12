@@ -19,7 +19,7 @@ img:hover{
 </style>
 <div class="con">
     @foreach($reports as $report)
-    <?php $orders = $report->orders;
+    <?php $payments = $report->payments;
             $sum =0;
     ?>
     <!--<table style="width:100%; margin-top:75px;"> -->
@@ -31,17 +31,22 @@ img:hover{
             </thead>
             <tbody>
                     <tr>
-                    <th>رقم الطلب</th>
+                    <th>رقم معرف الزبون</th>
+                    <th>طريقة الدفع</th>
+                    <th>حالة الدفع</th>
                     <th>المبلغ</th>
-                    <th>تاريخ التسليم</th>
                     </tr>
-                    @foreach($orders as $order)
+                    @foreach($payments as $payment)
                     <tr>
-                    <td>{{$order->id}}</td>
-                    <td>{{$order->tax}}</td>
-                    <td>{{$order->updated_at}}</td>
+
+                    <td>{{$payment->user_id}}</td>
+                    <td>{{$payment->method}}</td>
+                    <td>{{$payment->status}}</td>
+                    <td>{{$payment->price}}</td>
                     </tr>
-                    <?php $sum+=$order->tax; ?>
+                    <?php
+                    $sum+=$payment->price; 
+                    ?>
                     @endforeach
                     <tr>
                         <td style="font-weight: bold">مجموع المبالغ</td>

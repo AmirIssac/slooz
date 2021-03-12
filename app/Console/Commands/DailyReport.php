@@ -21,7 +21,7 @@ class DailyReport extends Command
      *
      * @var string
      */
-    protected $description = 'create report to daily orders';
+    protected $description = 'create report to daily payments';
 
     /**
      * Create a new command instance.
@@ -40,6 +40,7 @@ class DailyReport extends Command
      */
     public function handle()
     {    
+        /*
         // init the report first to get the id of report
         $report = new DayReport();
         $report->save();
@@ -48,6 +49,15 @@ class DailyReport extends Command
                             DB::table('orders')->where('order_status_id','5')->where('takedByDailyReport' ,'0')
                             ->update(['daily_report_id'=>$report->id,'takedByDailyReport' => '1']);
                          }
+                         */
+
+                         // init the report first to get the id of report
+                        $report = new DayReport();
+                        $report->save();
+                        $payments = DB::table('payments')->where('status' , 'Paid')->where('taked_by_daily_report' ,'0')->get();
+                        if($payments){
+                            DB::table('payments')->where('status' , 'Paid')->where('taked_by_daily_report' ,'0')->update(['day_report_id'=>$report->id,'taked_by_daily_report'=>'1']);
+                        }
                     }
                 
     }

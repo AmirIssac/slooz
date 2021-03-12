@@ -56,7 +56,7 @@
 
 </head>
 <body>
-    <?php $orders = $report->orders;
+    <?php $payments = $report->payments;
             $sum =0;
     ?>
     <table class="table table-bordered m-3">
@@ -67,17 +67,19 @@
     </thead>
     <tbody>
             <tr>
-            <th>order number</th>
+            <th>user id</th>
+            <th>payment method</th>
+            <th>payment status </th>
             <th>price</th>
-            <th>delivery at </th>
             </tr>
-            @foreach($orders as $order)
+            @foreach($payments as $payment)
             <tr>
-            <td>{{$order->id}}</td>
-            <td>{{$order->tax}}</td>
-            <td>{{$order->updated_at}}</td>
+            <td>{{$payment->user_id}}</td>
+            <td>{{$payment->method}}</td>
+            <td>{{$payment->status}}</td>
+            <td>{{$payment->price}}</td>
             </tr>
-            <?php $sum+=$order->tax; ?>
+            <?php $sum+=$payment->price; ?>
             @endforeach
             <tr>
                 <td style="font-weight: bold"> Total </td>

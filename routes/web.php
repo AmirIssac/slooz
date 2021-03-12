@@ -161,7 +161,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::post('request/register' , 'Controller@requestRegister');
+//Route::post('request/register' , 'Controller@requestRegister');    we make it in api for cashier app
 Route::get('show/requests' , 'Controller@showRequests');
 Route::post('accept/request/{id}' , 'Controller@acceptRequest')->name('accept.request');
 Route::get('show/all/users/not/admins' , 'Controller@showUsers');

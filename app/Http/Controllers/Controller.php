@@ -63,6 +63,7 @@ class Controller extends BaseController
         $user->password = $applicant->password;
         $user->api_token = str_random(60);
         $user->save();
+        $user->assignRole('cashier');
         $applicant->delete();
     }
     public function showUsers(){
