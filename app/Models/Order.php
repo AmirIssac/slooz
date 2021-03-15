@@ -104,6 +104,7 @@ class Order extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
+   
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -144,11 +145,5 @@ class Order extends Model
     {
         return $this->belongsTo(\App\Models\DeliveryAddress::class, 'delivery_address_id', 'id');
     }
-
-    public function dailyreport(){
-        
-        return $this->belongsTo(\App\DayReport::class,'day_report_id','id');
-    }
-
     
 }

@@ -29,6 +29,7 @@ Route::prefix('cashiers')->group(function () {
     Route::get('settings', 'API\cashier\UserAPIController@settings');
     Route::post('get_orders', 'API\cashier\UserAPIController@getOrder');
     Route::post('get_order', 'API\cashier\UserAPIController@getOrderById');
+    Route::post('order_action', 'API\cashier\UserAPIController@order_action');
     Route::resource('orders', 'API\OrderAPIController');
     Route::resource('notifications', 'API\NotificationAPIController');
 });

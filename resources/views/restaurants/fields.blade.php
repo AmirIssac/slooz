@@ -90,21 +90,14 @@
 </div>
 
 
-    <div style="margin-left: 128px">
-    <input style="margin-top: 10px;" type="url" name="url" placeholder="أدخل هنا الرابط الكامل لموقعك على الخريطة" class="form-control" id="maplink">
-     <button style="margin-top: 10px;" onclick="confirmMapLink();" type="button" class="btn btn-success"> تأكيد الرابط </button>
-    {{-- we declare confirmMapLink in script in create.blade.php --}}
-    </div>
-
 <!-- Latitude Field -->
-    <div style="margin-top: 10px" class="form-group row ">
+    <div class="form-group row ">
         {!! Form::label('latitude', trans("lang.restaurant_latitude"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('latitude', null,  ['id'=> 'lat','class' => 'form-control','placeholder'=>  'أدخل خط العرض يدويا في حال عدم توافر رابط']) !!}
+            {!! Form::text('latitude', null,  ['class' => 'form-control','placeholder'=>  trans("lang.restaurant_latitude_placeholder")]) !!}
             <div class="form-text text-muted">
                 {{ trans("lang.restaurant_latitude_help") }}
             </div>
-            
         </div>
     </div>
 
@@ -112,64 +105,12 @@
     <div class="form-group row ">
         {!! Form::label('longitude', trans("lang.restaurant_longitude"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('longitude', null,  ['id'=> 'long','class' => 'form-control','placeholder'=>  'أدخل خط الطول يدويا في حال عدم توافر رابط']) !!}
+            {!! Form::text('longitude', null,  ['class' => 'form-control','placeholder'=>  trans("lang.restaurant_longitude_placeholder")]) !!}
             <div class="form-text text-muted">
                 {{ trans("lang.restaurant_longitude_help") }}
             </div>
-            <!-- Button trigger modal -->
-<button onclick="validateCoordinate(document.getElementById('long').value,document.getElementById('lat').value);" style="margin-top: 10px" type="button" class="btn btn-warning" id="validatebtn">  
-    {{-- we declare validateCoordinate in script in create.blade.php --}}
-    تحقق من الإحداثيات
-  </button>
-  
-  <style>
-    .map {
-        margin-top:25px;
-        height: 300px;
-        width: 850px;
-        border: 2px solid #007bff;
-        border-radius: 10px;
-    }
-  </style>
-  <div id="map" class="map">
-    <div id="popup" class="ol-popup">   <!-- clicable popup -->
-        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-        <div id="popup-content"></div>
+        </div>
     </div>
-   </div>
-  {{--
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">موقع مطعمك على الخريطة</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            edrgerghe
-           <div style="z-index: 2" id="map" class="map">
-            <div id="popup" class="ol-popup">   <!-- clicable popup -->
-                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-                <div id="popup-content"></div>
-            </div>
-           </div>
-           bdfbdrbbttr
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>--}}
-  
-        </div>
-        
-    </div> 
-
 <!-- 'Boolean state of user Field' -->
 <div class="form-group row ">
     {!! Form::label('enable', trans("lang.enable"),['class' => 'col-3 control-label text-right']) !!}
@@ -190,8 +131,6 @@
         </label>
     </div>
 </div>
-
-
 
 </div>
 
@@ -253,7 +192,6 @@
             dz_var15671147011688676454ble[0].mockFile = var15671147011688676454ble;
             dropzoneFields['image'] = dz_var15671147011688676454ble;
         </script>
-        
 @endprepend
 
 <!-- Description Field -->

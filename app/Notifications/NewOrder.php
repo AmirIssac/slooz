@@ -55,17 +55,24 @@ class NewOrder extends Notification
 
     public function toFcm($notifiable)
     {
+
+            $foodNames = array();
+
+        foreach( $this->order->foodOrders as $cfoodOrder ) { 
+         $foodNames[]=$cfoodOrder->quantity." ".$cfoodOrder->food->name;
+        } 
+
         $message = new FcmMessage();
-//        $notification = [
-//            'title'        => "New Order #".$this->order->id." to ".$this->order->foodOrders[0]->food->restaurant->name,
-//            'body'         => $this->order->user->name,
-//            'icon'         => $this->order->foodOrders[0]->food->restaurant->getFirstMediaUrl('image', 'thumb'),
-//            'click_action' => "FLUTTER_NOTIFICATION_CLICK",
-//            'id' => '1',
-//            'status' => 'done',
-//        ];
+        $notification = [
+            'title'        => "New Order #".$this->order->id." to ".$this->order->foodOrders[0]->food->restaurant->name,
+            'body'         => $this->order->user->name,
+            'icon'         => $this->order->foodOrders[0]->food->restaurant->getFirstMediaUrl('image', 'thumb'),
+            'click_action' => "FLUTTER_NOTIFICATION_CLICK",
+            'id' => $this->order->foodOrders[0]->food->restaurant->id,
+            'status' => 'done',
+        ];
         $data=[
-            'message'=> $this->order->foodOrders[0]->food->name,
+            'message'=> implode("\n",$foodNames),
             'orderId' => $this->order->id,
             ];
         $message->data($data)->priority(FcmMessage::PRIORITY_HIGH);
@@ -86,3 +93,4 @@ class NewOrder extends Notification
         ];
     }
 }
+

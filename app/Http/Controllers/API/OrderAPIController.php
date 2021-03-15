@@ -148,7 +148,6 @@ class OrderAPIController extends Controller
                 )
             ));
             if ($stripeToken->created > 0) {
-                $request->order_status_id = 4; // on the way
                 $order = $this->orderRepository->create(
                     $request->only('user_id', 'order_status_id', 'tax', 'delivery_address_id','delivery_fee')
                 );
@@ -185,7 +184,7 @@ class OrderAPIController extends Controller
         $amount = 0;
         $total = 0;
         $total_price = 0;
-//        $rest_id;
+        $rest_id;
         // $point = new Point;
         try {
             $total =  \DB::table('app_settings')->select('value')->where('key','order_point_save')->get();
@@ -194,7 +193,6 @@ class OrderAPIController extends Controller
         }
         try {
             //$input['order_discount'] += $input['order_wallet'];
-            $request->order_status_id = 1; // order received
             $order = $this->orderRepository->create(
                 $request->only('user_id', 'order_status_id', 'tax', 'delivery_address_id','delivery_fee','order_discount','hint')
             );
@@ -295,7 +293,7 @@ class OrderAPIController extends Controller
     
     public function updateOrderStatus(Request $request)
     {
-
+        
         $input = $request->all();
 
         $order = $this->orderRepository->findWithoutFail($input['id']);
@@ -347,14 +345,7 @@ class OrderAPIController extends Controller
 
         return $this->sendResponse($order->toArray(), __('lang.saved_successfully', ['operator' => __('lang.order')]));
     }
-
-    // change order status with prepration time
-    // refund to wallet
-    // restaurant settlements if rejected
-
-    // change order status to ready (send notif)
-
-
+    
     public function updateRestaurantStatus(Request $request)
     {
         

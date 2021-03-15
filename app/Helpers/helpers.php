@@ -3,6 +3,7 @@
 use InfyOm\Generator\Common\GeneratorField;
 use InfyOm\Generator\Utils\GeneratorFieldsInputUtil;
 use InfyOm\Generator\Utils\HTMLFieldGenerator;
+use App\Models\User;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
@@ -607,4 +608,20 @@ function getNeededArray($delimiter = '|', $string = '', $input)
     } else {
         return [$array[0] => getNeededArray($delimiter, $array[1], $input)];
     }
+}
+function username($data){
+    $user = User::find($data);
+    return $user['name'];
+}
+
+
+
+function ResponseJson($status = 200 ,$msg,$data =null)
+{
+	$response =[
+		'status'=>$status,
+		'msg'=>$msg,
+		'data'=>$data
+	];
+	return response()->json($response);
 }

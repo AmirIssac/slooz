@@ -1,23 +1,10 @@
-@can('dashboard') 
+@can('dashboard')
     <li class="nav-item">
         <a class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}" href="{!! url('dashboard') !!}">@if($icons)
                 <i class="nav-icon fa fa-dashboard"></i>@endif
             <p>{{trans('lang.dashboard')}}</p></a>
     </li>
-{{--@endcan--}}
-    <li class="nav-item">
-        <a class="nav-link" href="{!! url('show/all/users/not/admins') !!}">@if($icons)
-                <i class="nav-icon fa fa-user-circle-o"></i>@endif
-            <p> المستخدمين</p></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{!! url('show/requests') !!}">@if($icons)
-                <i class="nav-icon fa fa-clipboard"></i>@endif
-            <p>طلبات الإنضمام</p></a>
-    </li>
-    @endcan
-
+@endcan
 
 @can('favorites.index')
     <li class="nav-item">
@@ -41,7 +28,7 @@
                     <a class="nav-link {{ Request::is('restaurants*') ? 'active' : '' }}" href="{!! route('restaurants.index') !!}">@if($icons)
                             <i class="nav-icon fa fa-cutlery"></i>@endif<p>{{trans('lang.restaurant_plural')}}</p></a>
                 </li>
-           @endcan
+            @endcan
             @can('galleries.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('galleries*') ? 'active' : '' }}" href="{!! route('galleries.index') !!}">@if($icons)
@@ -54,16 +41,12 @@
                         <i class="nav-icon fa fa-file-o" aria-hidden="true"></i>@endif<p>{{trans('lang.coupon_plural')}}</p></a>
                 </li>
             @endcan
-           @can('restaurantReviews.index')
+            @can('restaurantReviews.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('restaurantReviews*') ? 'active' : '' }}" href="{!! route('restaurantReviews.index') !!}">@if($icons)
                             <i class="nav-icon fa fa-comments"></i>@endif<p>{{trans('lang.restaurant_review_plural')}}</p></a>
                 </li>
-           @endcan
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('show.map')}}">@if($icons)
-                             <i class="nav-icon fa fa-map-marker"></i>@endif<p>الخريطة</p></a>
-        </li>
+            @endcan
         </ul>
     </li>
 @endcan
@@ -83,7 +66,7 @@
                 </li>
             @endcan
 
-           @can('foods.index')
+            @can('foods.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('foods*') ? 'active' : '' }}" href="{!! route('foods.index') !!}">@if($icons)
                             <i class="nav-icon fa fa-fire"></i>@endif
@@ -98,7 +81,7 @@
                 </li>
             @endcan
 
-           @can('foodReviews.index')
+            @can('foodReviews.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('foodReviews*') ? 'active' : '' }}" href="{!! route('foodReviews.index') !!}">@if($icons)
                             <i class="nav-icon fa fa-comments"></i>@endif<p>{{trans('lang.food_review_plural')}}</p></a>
@@ -111,7 +94,7 @@
                     <a class="nav-link {{ Request::is('nutrition*') ? 'active' : '' }}" href="{!! route('nutrition.index') !!}">@if($icons)
                             <i class="nav-icon fa fa-tasks"></i>@endif<p>{{trans('lang.nutrition_plural')}}</p></a>
                 </li>
-           @endcan
+            @endcan
 
         </ul>
     </li>
@@ -132,7 +115,7 @@
                             <i class="nav-icon fa fa-archive"></i>@endif<p>{{trans('lang.order_plural')}}</p></a>
                 </li>
             @endcan
-          @can('orderStatuses.index')
+            @can('orderStatuses.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('orderStatuses*') ? 'active' : '' }}" href="{!! route('orderStatuses.index') !!}">@if($icons)
                             <i class="nav-icon fa fa-server"></i>@endif<p>{{trans('lang.order_status_plural')}}</p></a>
@@ -148,13 +131,8 @@
         </ul>
     </li>
 @endcan
-@can('dashboard')
-        <li class="nav-item">
-                    <a class="nav-link" href="{{route('records')}}">@if($icons)
-                    <i class="nav-icon fa fa-sticky-note"></i>@endif
-                          <p>التقارير </p></a>
-        </li>
-@endcan
+
+
 @can('faqs.index')
     <li class="nav-item has-treeview {{ Request::is('faqCategories*') || Request::is('faqs*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('faqs*') || Request::is('faqCategories*') ? 'active' : '' }}"> @if($icons)
@@ -163,14 +141,14 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-           @can('faqCategories.index')
+            @can('faqCategories.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('faqCategories*') ? 'active' : '' }}" href="{!! route('faqCategories.index') !!}">@if($icons)
                             <i class="nav-icon fa fa-folder"></i>@endif<p>{{trans('lang.faq_category_plural')}}</p></a>
                 </li>
             @endcan
 
-           @can('faqs.index')
+            @can('faqs.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('faqs*') ? 'active' : '' }}" href="{!! route('faqs.index') !!}">@if($icons)
                             <i class="nav-icon fa fa-question-circle"></i>@endif
