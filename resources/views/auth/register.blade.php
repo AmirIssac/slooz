@@ -1,10 +1,17 @@
 @extends('layouts.auth.default')
 @section('content')
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-block">
+	<button type="button" class="close" data-dismiss="alert">×</button>	
+        <strong>{{ $message }}</strong>
+</div>
+@endif
     <div class="card-body login-card-body">
         <p class="login-box-msg">{{__('auth.register_new_member')}}</p>
 
-        <form action="{{ url('/register') }}" method="post">
-            {!! csrf_field() !!}
+            <form action="{{ url('/register') }}" method="post">
+           {{-- <form action="/request/register" method="post">--}}
+               {!! csrf_field() !!}  
 
             <div class="input-group mb-3">
                 <input value="{{ old('name') }}" type="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" placeholder="{{__('auth.name')}}" aria-label="{{__('auth.name')}}">
@@ -62,7 +69,8 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-4">
-                    <button type="submit" class="btn btn-primary btn-block">{{__('auth.register')}}</button>
+                    <button type="submit" class="btn btn-primary btn-block"> Register </button>
+                   {{-- <button type="submit" class="btn btn-primary btn-block">{{__('Register')}}</button> --}}
                 </div>
                 <!-- /.col -->
             </div>

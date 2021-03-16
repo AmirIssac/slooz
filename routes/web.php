@@ -155,3 +155,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('restaurantsPayouts', 'RestaurantsPayoutController');
 
 });
+
+//Route::post('request/register' , 'Controller@requestRegister');    we make it in api for cashier app
+Route::get('show/requests' , 'Controller@showRequests');
+Route::post('accept/request/{id}' , 'Controller@acceptRequest')->name('accept.request');
+Route::get('show/all/users/not/admins' , 'Controller@showUsers');
+Route::post('make/admin/{id}' , 'Controller@makeAdmin')->name('make.admin');
+Route::post('make/cashier/{id}' , 'Controller@makeCashier')->name('make.cashier');
+Route::post('make/driver/{id}' , 'Controller@makeDriver')->name('make.driver');
+Route::post('make/client/{id}' , 'Controller@makeClient')->name('make.client');
+Route::get('records','Controller@records')->name('records');
+Route::get('daily/reports','Controller@dailyReports')->name('daily.reports');
+Route::post('print/recrord/pdf','Controller@printPDF')->name('print.pdf');
+Route::post('print/recrord/{id}','Controller@printPDF')->name('print.pdf');
+Route::get('show/map','Controller@showMap')->name('show.map');

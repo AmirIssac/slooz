@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\cashier;
 
+use App\Applicant;
 use App\Events\UserRoleChangedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -90,7 +91,7 @@ class UserAPIController extends Controller
      */
     function register(Request $request)
     {
-        $user = new User;
+         /*$user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->device_token = $request->input('device_token','');
@@ -98,14 +99,25 @@ class UserAPIController extends Controller
         $user->api_token = str_random(60);
         $user->save();
 
-        $user->assignRole('driver');
+        //$user->assignRole('cashier');   we assign role when accepted the request
 
-        $user->addMediaFromUrl("https://na.ui-avatars.com/api/?name=" . str_replace(" ", "+", $user->name))
+        /*$user->addMediaFromUrl("https://na.ui-avatars.com/api/?name=" . str_replace(" ", "+", $user->name))
             ->withCustomProperties(['uuid' => bcrypt(str_random())])
             ->toMediaCollection('avatar');
         event(new UserRoleChangedEvent($user));
 
-        return $this->sendResponse($user, 'User retrieved successfully');
+        return $this->sendResponse($user, 'User retrieved successfully');*/
+
+
+        $user = new Applicant();    // applicant
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        //$user->device_token = $request->input('device_token','');
+        $user->password = Hash::make($request->input('password'));
+        //$user->api_token = str_random(60);
+        $user->save();
+
+        return $this->sendResponse($user, 'Request sent to adminstration successfuly');
     }
 
     function logout(Request $request)
