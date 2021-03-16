@@ -12,6 +12,15 @@
     </div>
   </div>
 </div>
+<div class="form-group row ">
+  {!! Form::label('number', trans("lang.number"), ['class' => 'col-3 control-label text-right']) !!}
+  <div class="col-9">
+    {!! Form::text('number', null,  ['class' => 'form-control','placeholder'=>  trans("lang.number")]) !!}
+    <div class="form-text text-muted">
+      {{ trans("lang.number") }}
+    </div>
+  </div>
+</div>
 </div>
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
 

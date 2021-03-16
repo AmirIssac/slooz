@@ -4,7 +4,6 @@
                 <i class="nav-icon fa fa-dashboard"></i>@endif
             <p>{{trans('lang.dashboard')}}</p></a>
     </li>
-{{--@endcan--}}
     <li class="nav-item">
         <a class="nav-link" href="{!! url('show/all/users/not/admins') !!}">@if($icons)
                 <i class="nav-icon fa fa-user-circle-o"></i>@endif
@@ -60,10 +59,10 @@
                             <i class="nav-icon fa fa-comments"></i>@endif<p>{{trans('lang.restaurant_review_plural')}}</p></a>
                 </li>
            @endcan
-                <li class="nav-item">
+               {{-- <li class="nav-item">
                     <a class="nav-link" href="{{route('show.map')}}">@if($icons)
                              <i class="nav-icon fa fa-map-marker"></i>@endif<p>الخريطة</p></a>
-        </li>
+        </li>--}}
         </ul>
     </li>
 @endcan

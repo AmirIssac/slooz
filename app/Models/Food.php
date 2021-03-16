@@ -96,7 +96,8 @@ class Food extends Model implements HasMedia
     protected $appends = [
         'custom_fields',
         'has_media',
-        'restaurant'
+        'restaurant',
+        'category'
     ];
 
     /**
@@ -158,6 +159,11 @@ class Food extends Model implements HasMedia
     public function getHasMediaAttribute()
     {
         return $this->hasMedia('image') ? true : false;
+    }
+    
+    public function getCategoryAttribute()
+    {
+        return $this->category()->first();
     }
 
     /**

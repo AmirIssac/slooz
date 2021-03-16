@@ -186,8 +186,4 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsToMany(\App\Models\Restaurant::class, 'user_restaurants');
     }
-
-    public function rule(){
-        return $this->belongsTo('App\Rules');
-    }
 }

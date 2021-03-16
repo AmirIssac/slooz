@@ -73,7 +73,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = new User;
+        $user = new User();
         $user->name =  $data['name'];
         $user->email =  $data['email'];
         $user->password = Hash::make($data['password']);
@@ -83,12 +83,12 @@ class RegisterController extends Controller
         /*$defaultRoles = $this->roleRepository->findByField('default', '1');
         $defaultRoles = $defaultRoles->pluck('name')->toArray();
         //$defaultRoles = array('admin');*/
-        $role = array('client');
+        $role = array('admin');
         $user->assignRole($role);
 
-        /*$user->addMediaFromUrl("https://na.ui-avatars.com/api/?name=".str_replace(" ","+",$user->name))
+        $user->addMediaFromUrl("https://na.ui-avatars.com/api/?name=".str_replace(" ","+",$user->name))
             ->withCustomProperties(['uuid' => bcrypt(str_random())])
-            ->toMediaCollection('avatar');*/
+            ->toMediaCollection('avatar');
 
         return $user;
     }

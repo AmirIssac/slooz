@@ -3,18 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Applicant;
-use App\DayReport;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\Request as HttpRequest;
-use Illuminate\Support\Facades\Hash;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Http\Request;
 
 class Controller extends BaseController
 {
@@ -42,17 +38,9 @@ class Controller extends BaseController
     {
         return Response::json(ResponseUtil::makeError($error), $code);
     }
-    public function requestRegister(Request $request){
-        $applicant = new Applicant();
-        $applicant->name =  $request->input('name');
-        $applicant->email =  $request->input('email');
-        $applicant->password = Hash::make($request->input('password'));
-        //dd($applicant);
-        $applicant->save();
-        return back()->with('success','تم ارسال طلبك للإدارة بنجاح يرجى انتظار قبول الطلب');
-    }
+
     public function showRequests(){
-        return view('layouts.requests')->with("applicants" , Applicant::all());
+        return view('layouts.submenu.requests')->with("applicants" , Applicant::all());
     }
 
     public function acceptRequest($id){
@@ -69,17 +57,17 @@ class Controller extends BaseController
     public function showUsers(){
         //$users = User::where('rule_id','!=',1)->get();  // get all none admins users
         $users = User::all();
-        return view('layouts.users')->with(["users"=>$users]);
+        return view('layouts.submenu.users')->with(["users"=>$users]);
     }
     public function records(){
-        return view('layouts.records');
+        return view('layouts.submenu.records');
     }
-    public function dailyReports(){
+   /* public function dailyReports(){
         $reports = DayReport::all();  // all daily reports
-        return view('layouts.dailyreports')->with(['reports'=>$reports]);
-    }
+        return view('layouts.submenu.dailyreports')->with(['reports'=>$reports]);
+    }*/
     
-    public function printPDF($id){
+    /*public function printPDF($id){
         set_time_limit(1000);
         $report = DayReport::find($id);
        // $pdf = PDF::loadView('layouts.dailyreportpdf',['report'=>$report]);
@@ -89,11 +77,11 @@ class Controller extends BaseController
         $pdf = PDF::loadView('layouts.dailyreportpdf',['report'=>$report]);
         $pdf->save($path.'/my_pdf.pdf', 'UTF-8');
         return response()->download($path.'/my_pdf.pdf');
-    }
+    }*/
 
-    public function showMap(){
-        return view('layouts.map');
-    } 
+    /*public function showMap(){
+        return view('layouts.submenu.map');
+    } */
 
     public function makeAdmin($id){
         $user = User::find($id);
@@ -119,4 +107,5 @@ class Controller extends BaseController
         $user->assignRole($role);
         return back()->with('success','تم منح سماحية الزبون بنجاح');
     }
+
 }

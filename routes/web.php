@@ -11,8 +11,6 @@
 |
 */
 
-
-
 Auth::routes();
 
 Route::get('payments/paypal', 'PayPalController@index')->name('paypal.index');
@@ -70,7 +68,6 @@ Route::middleware('auth')->group(function () {
                 ->where('type', '[A-Za-z]*')->where('tab', '[A-Za-z]*')->name('app-settings');
         });
     });
-    
 
     Route::post('restaurants/remove-media', 'RestaurantController@removeMedia');
     Route::get('restaurants/clone/{id}', 'RestaurantController@clone')->name('restaurants.clone');
@@ -156,8 +153,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('driversPayouts', 'DriversPayoutController');
 
     Route::resource('restaurantsPayouts', 'RestaurantsPayoutController');
-
-    
 
 });
 

@@ -265,7 +265,6 @@
     <script src="{{asset('dist/js/demo.js')}}"></script>
 
     <script src="{{asset('js/scripts.js')}}"></script>
-    @yield('my_script')
     @stack('scripts')
 </body>
 </html>

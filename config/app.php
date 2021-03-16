@@ -160,7 +160,6 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 //        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,7 +226,6 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'HTMLFieldGenerator' => InfyOm\Generator\Utils\HTMLFieldGenerator::class,
 //        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

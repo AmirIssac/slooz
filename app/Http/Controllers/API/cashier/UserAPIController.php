@@ -6,6 +6,9 @@ use App\Applicant;
 use App\Events\UserRoleChangedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\FoodOrder;
+use App\Models\OrderStatus;
 use App\Repositories\CustomFieldRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\UploadRepository;
@@ -88,7 +91,7 @@ class UserAPIController extends Controller
      */
     function register(Request $request)
     {
-       /*$user = new User;
+         /*$user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->device_token = $request->input('device_token','');
@@ -232,20 +235,26 @@ class UserAPIController extends Controller
         $user = $this->userRepository->findByField('api_token', $request->input('api_token'))->first();
 
         if (!$user && !$user->hasRole('cashier')) {
-            return $this->sendResponse([
-                'error' => true,
-                'code' => 404,
-            ], 'User not found');
+            
+           return ResponseJson(404,'error','User not found');
+
         }
 
-        $order = new \App\Models\Order;
-        $orders = $order->newQuery()->with("orderStatus")/*->with("user")->with('payment')*/
-            ->join("food_orders", "orders.id", "=", "food_orders.order_id")
-            ->join("foods", "foods.id", "=", "food_orders.food_id")
-            ->join("user_restaurants", "user_restaurants.restaurant_id", "=", "foods.restaurant_id")
-            ->where('user_restaurants.user_id', $user->id)
-            ->groupBy('orders.id')
-            ->select('orders.*')->get(); 
+
+        $orders= Order::where('order_status_id','1')->get();
+        foreach($orders as $value){
+            $value->setAttribute('user', username($value->user_id));
+        }
+         return ResponseJson(200,'success',$orders);
+        
+       // $order = new \App\Models\Order;
+    //    $orders = $order->newQuery()->with("orderStatus")/*->with("user")->with('payment')*/
+      //      ->join("food_orders", "orders.id", "=", "food_orders.order_id")
+        //    ->join("foods", "foods.id", "=", "food_orders.food_id")
+          //  ->join("user_restaurants", "user_restaurants.restaurant_id", "=", "foods.restaurant_id")
+            //->where('user_restaurants.user_id', $user->id)
+            //->groupBy('orders.id')
+            //->select('orders.*')->get(); 
 
             // $order = new \App\Models\Order;
             // return $order->newQuery()->with("user")->with("orderStatus")->with('payment')
@@ -257,9 +266,26 @@ class UserAPIController extends Controller
             //     ->groupBy('orders.id')
             //     ->select(['orders.*','delivery_addresses.address','delivery_addresses.description'])->get(); 
         
-        return $this->sendResponse($orders, 'User retrieved successfully');
+        //return $this->sendResponse($orders, 'User retrieved successfully');
     }
+    public function order_action(Request $request){
+      $user = $this->userRepository->findByField('api_token', $request->input('api_token'))->first();
+        
+        if (!$user && !$user->hasRole('cashier')) {
+            return $this->sendResponse([
+                'error' => true,
+                'code' => 404,
+            ], 'User not found');
+        }
+        $action = OrderStatus::where('status',$request->action)->first();
+        
+         $order = Order::find($request->order_id)->with('orderStatus','user','foodOrders')->first();
+         $order->order_status_id = $action->id;
+         $order->save();
+          return $this->sendResponse($order, 'User retrieved successfully');
+                  return ResponseJson(200,'success','User retrieved successfully');
 
+    }
     public function getOrderById(Request $request)
     {
         $user = $this->userRepository->findByField('api_token', $request->input('api_token'))->first();
@@ -270,20 +296,23 @@ class UserAPIController extends Controller
                 'code' => 404,
             ], 'User not found');
         }
-        
-        $order = $this->orderRepository->findWithoutFail(105);
-        $subtotal = 0;
+        $order = Order::where('id',$request->order_id)->first();
+        $user = User::find($order->user_id);
+        $food = FoodOrder::where('order_id',$order->id)->get();
+        return ResponseJson(200,'success',['order'=>$order,'user'=>$user,'food'=>$food]);
+        // $order = $this->orderRepository->findWithoutFail(105);
+        // $subtotal = 0;
         // return $order->foodOrders;
         // $food_order = new \App\Models\FoodOrder;
         // $showOrders = $food_order->newQuery()->with("food")
         //     ->where('food_orders.order_id', $order->id)
         //     ->select('food_orders.*')->orderBy('food_orders.id', 'desc')->get();
-        $food_order = new \App\Models\order;
-        $showOrders = $food_order->newQuery()->with("foodOrders")->with("orderStatus")->with("payment")->with("deliveryAddress")
-            ->where('id', 119)
-            ->select('orders.*')->first();
+        // $food_order = new \App\Models\order;
+        // $showOrders = $food_order->newQuery()->with("foodOrders")->with("orderStatus")->with("payment")->with("deliveryAddress")
+           //  ->where('id', 119)
+            // ->select('orders.*')->first();
 
-        return $this->sendResponse($showOrders->toArray(), 'User retrieved successfully');
+       // return $this->sendResponse(['order'=>$order,'user'=>$user,'food'=>$food], 'User retrieved successfully');
         // if (empty($order)) {
             
         // }
